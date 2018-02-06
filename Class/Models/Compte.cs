@@ -12,6 +12,7 @@ namespace MYOP_Model_DAL.Models
         //contenue de la table compte
         private string _id_compte;
         private string _nom_de_compte;
+        private string _type_de_compte;
         
         //contenue des info lier au compte dans les autres table
         private string _id_contenue;
@@ -38,6 +39,12 @@ namespace MYOP_Model_DAL.Models
         {
             get { return _nom_de_compte; }
             set { _nom_de_compte = value; }
+        }
+
+        public string Type_de_compte
+        {
+            get { return _type_de_compte; }
+            set { _type_de_compte = value; }
         }
 
         public string Id_contenue
@@ -107,26 +114,25 @@ namespace MYOP_Model_DAL.Models
         {
 
         }
-        /// <param name="list">nom, prenom, adresse, n° de telephone</param>
+        /// <param name="list">id du compte, nom du compte, nom, prenom, adresse, 
+        /// n° de telephone, email, nom de la pizzeria, adresse de la pizzeria</param>
         public Compte(params string[] list)
         {
             Id_compte = list[0];
             Nom_de_compte = list[1];
-            Id_contenue = list[2];
-            Nom = list[3];
-            Prenom = list[4];
-            Adresse = list[5];
-            No_telephone = list[6];
-            Email = list[7];
-            if (8 < list.Length) 
+            Type_de_compte = list[2];
+            Id_contenue = list[3];
+            Nom = list[4];
+            Prenom = list[5];
+            Adresse = list[6];
+            No_telephone = list[7];
+            Email = list[8];
+            if (9 > list.Length) 
             {
-                Nom_pizzeria = list[8];
-                Adresse_pizzeria = list[9];
+                Nom_pizzeria = list[9];
+                Adresse_pizzeria = list[10];
             }
         }
-
-
-        //private ;
     }
 
 
