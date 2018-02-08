@@ -1,0 +1,74 @@
+﻿body{
+    font-family:'Fjalla One', sans-serif;
+    background-image: url(images/main_background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    background-size: 100% 100%;
+    image-rendering: auto;
+    height: 100vh;
+}
+
+/*=============================== Header =====================================*/
+
+#logo{
+    position: absolute;
+    top: 20px;
+    left: 150px;
+}
+
+.nav-link, nav-item{
+    padding-left: 15px;
+    color: white;
+}
+
+
+
+.header {
+    height: 145px;
+    margin-bottom: 25px;
+}
+
+#main-nav{
+
+    top: 60px;
+    position: absolute;
+    right: 100px;
+    width:auto;
+    border-radius: 15px 16px;
+}
+
+#sub-nav{
+
+    align-content: center;
+    background:black;
+    font-size: 11px;
+    height: 23px;
+    right: 50px;
+    top: 0;
+    position: absolute;
+    width: auto;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/*=============================== Message =====================================*/
+
+.container-fluid{
+    position: absolute;
+    margin-top: 170px;
+}
+
+
+/*=============================== Presentation =====================================*/
+
+.text-capitalize{
+    padding-bottom: 4em;
+}
+
+
+/*=============================== Footer =====================================*/
+.footer{
+    position:absolute;
+    bottom:0;
+}
