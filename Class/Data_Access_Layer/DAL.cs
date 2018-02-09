@@ -5,88 +5,37 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MYOP_Model_DAL.Models;
-using System.Data; //a changer selon le projet 
+using MYOP_Model_DAL.Models;//a changer selon le projet 
+using System.Data;
 
-namespace MYOP_Model_DAL.Data_Access_Layer
+namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet 
 {
     class DAL
     {
 
         private static SqlConnection _maCnx;
 
+        #region connection
         public static Compte Connection(string nomCompte, string motDePasse)
         {
-            //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|App_Data\Database.mdf;Integrated Security=True");
             Compte o;
-            DataTable dt = new DataTable();
-            DataTable sdt = new DataTable();
-            int idFK = 0;
-            string typeDeCompte = "";
-            string nomDeCompte = "";
-            string[] infocompte = new string[11];
+
+            string[] contenuTableCompte;
+            string[] contenuTableInfo;// tableau temporaire permetant de stocker les info de la table pizzeria,Admin,client si besoin
+            string[] infocompte;//stockant la concatenation des 2 table précedante
             try
             {
-                using (SqlCommand cmd = new SqlCommand("connection", _maCnx))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@nomDeCompte", nomCompte);
-                    cmd.Parameters.AddWithValue("@motDePasse", motDePasse);
-                    _maCnx.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    _maCnx.Close();
 
-                    /*
-                    for (int i = 0; i < ds.Rows[0].Table.Columns.Count; i++)
-                    {
-                        Console.Write(ds.Rows[0].Table.Columns[i] + " ");//nom des colonne
-                    }
-                    Console.WriteLine();*/
+                contenuTableCompte = VerificationCompte(nomCompte, motDePasse);
+                contenuTableInfo = RecuperationCompte(contenuTableCompte);
 
-                    for (int i = 3; i < dt.Rows[0].Table.Columns.Count; i++)
-                    {
-                        if (dt.Rows[0][i].ToString() != "")
-                        {
-                            Console.Write(dt.Rows[0][i] + " ");
-                            typeDeCompte = dt.Rows[0].Table.Columns[i].ToString();
-                            typeDeCompte = typeDeCompte.Substring(0, typeDeCompte.LastIndexOf('_'));
-                            idFK = int.Parse(dt.Rows[0][i].ToString());
+                infocompte = new string[contenuTableCompte.GetLength(0) + contenuTableInfo.GetLength(0)];
 
-                            break;
-                        }
+                contenuTableCompte.CopyTo(infocompte, 0);
+                contenuTableInfo.CopyTo(infocompte, contenuTableCompte.GetLength(0));
 
-                        else
-                            Console.Write("NULL ");
-                    }
-
-                    infocompte[0] = dt.Rows[0][0].ToString();
-                    infocompte[1] = dt.Rows[0][1].ToString();
-                    infocompte[2] = typeDeCompte;
-                }
-                
-
-                using (SqlCommand souscmd = new SqlCommand("recuperationDeCompte", _maCnx))
-                {
-                    souscmd.CommandType = CommandType.StoredProcedure;
-                    souscmd.Parameters.AddWithValue("@nomDeTable", typeDeCompte);
-                    souscmd.Parameters.AddWithValue("@id", idFK);
-                    Console.WriteLine(typeDeCompte + " " + idFK);
-                    _maCnx.Open();
-                    SqlDataAdapter sda = new SqlDataAdapter(souscmd);
-                    sda.Fill(sdt);
-                    _maCnx.Close();
-                    
-                    for (int y = 0; y < sdt.Rows[0].Table.Columns.Count; y++)
-                    {
-                        if (sdt.Rows[0][y].ToString() != "")
-                            Console.Write(sdt.Rows[0][y] + " ");
-                        infocompte[y + 3] = sdt.Rows[0][y].ToString();
-                    }
-
-                }
                 o = new Compte(infocompte);
-                
+
             }
             catch (Exception ex)
             {
@@ -97,6 +46,121 @@ namespace MYOP_Model_DAL.Data_Access_Layer
             return o;
 
         }
+
+        private static string[] VerificationCompte(string nomCompte, string motDePasse)
+        {
+            string[] retour = new string[3];
+            DataTable dt = new DataTable();
+            using (SqlCommand cmd = new SqlCommand("connection", _maCnx))
+            {
+                string typeDeCompte = "";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@nomDeCompte", nomCompte);
+                cmd.Parameters.AddWithValue("@motDePasse", motDePasse);
+                _maCnx.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                _maCnx.Close();
+
+                for (int i = dt.Rows[0].Table.Columns.Count - 3; i < dt.Rows[0].Table.Columns.Count; i++)//recherche du type de compte, i correspond au debut des FK
+                {
+                    if (dt.Rows[0][i].ToString() != "")//la cellule est "" lorsqu'elle est a null dans la BDD
+                    {
+                        typeDeCompte = dt.Rows[0].Table.Columns[i].ToString();// recuperation du nom de la colonne
+                        typeDeCompte = typeDeCompte.Substring(0, typeDeCompte.LastIndexOf('_'));//transfo en nom de Table
+                        break;
+                    }
+                }
+
+                retour[0] = dt.Rows[0][0].ToString();//Id
+                retour[1] = dt.Rows[0][1].ToString();//Pseudo
+                retour[2] = typeDeCompte;//type de compte
+            }
+
+            return retour;
+        }
+
+        private static string[] RecuperationCompte(string[] infocompte)
+        {
+            string[] retour;
+            DataTable sdt = new DataTable();
+            using (SqlCommand souscmd = new SqlCommand("recuperationDeCompte", _maCnx))
+            {
+                souscmd.CommandType = CommandType.StoredProcedure;
+                souscmd.Parameters.AddWithValue("@nomDeTable", infocompte[2]);
+                souscmd.Parameters.AddWithValue("@id", int.Parse(infocompte[0]));
+                _maCnx.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(souscmd);
+                sda.Fill(sdt);
+                _maCnx.Close();
+                retour = new string[sdt.Rows[0].Table.Columns.Count];
+                for (int y = 0; y < sdt.Rows[0].Table.Columns.Count; y++)// recuperation de la table contenant les infos du compte 
+                {
+                    retour[y] = sdt.Rows[0][y].ToString();
+                }
+
+            }
+            return retour;
+        }
+        #endregion
+
+        #region creation de compte
+
+        public static void creationStandart(Compte o, string mdp)
+        {
+            try
+            {
+                string procedure = "";
+                switch (o.Type_de_compte)
+                {
+                    case "administrateur": procedure = "AjoutPersoAdmin";
+                        break;
+                    case "client": procedure = "AjoutPersoClient";
+                        break;
+                    case "pizzeria": procedure = "AjoutPersoPizzeria";
+                        break;
+                }
+                _maCnx.Open();//bien mettre en dehors du using
+
+                using (SqlCommand cmd = new SqlCommand("CreationComptePerso", _maCnx))
+                {
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@nom_de_compte", SqlDbType.VarChar).Value = o.Nom_de_compte;
+                cmd.Parameters.AddWithValue("@mot_de_passe", SqlDbType.VarChar).Value = mdp;
+                cmd.Parameters.AddWithValue("@type_de_compte", SqlDbType.VarChar).Value = o.Type_de_compte;
+                cmd.Parameters.AddWithValue("@nom", SqlDbType.VarChar).Value = o.Nom;
+                cmd.Parameters.AddWithValue("@prenom", SqlDbType.VarChar).Value = o.Prenom;
+                cmd.Parameters.AddWithValue("@adresse", SqlDbType.VarChar).Value = o.Adresse;
+                cmd.Parameters.AddWithValue("@no_telephone", SqlDbType.VarChar).Value = o.No_telephone;
+                cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = o.Email;
+                if (o.Nom_pizzeria == null)
+                {
+                    cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                    cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                }
+                else 
+                {
+                    cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = o.Nom_pizzeria;
+                    cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = o.Adresse_pizzeria;
+                }
+
+
+                cmd.ExecuteNonQuery();
+
+
+                }
+                _maCnx.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+
+        #endregion
+
 
 
         static DAL()

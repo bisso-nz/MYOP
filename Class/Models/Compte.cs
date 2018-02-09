@@ -114,7 +114,7 @@ namespace MYOP_Model_DAL.Models
         {
 
         }
-        /// <param name="list">id du compte, nom du compte, nom, prenom, adresse, 
+        /// <param name="list">id du compte, nom du compte, type de compte, id de la table cible, nom, prenom, adresse, 
         /// n° de telephone, email, nom de la pizzeria, adresse de la pizzeria</param>
         public Compte(params string[] list)
         {
