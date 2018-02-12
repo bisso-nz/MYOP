@@ -51,16 +51,16 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
         {
             string[] retour = new string[3];
             DataTable dt = new DataTable();
+            _maCnx.Open();
+
             using (SqlCommand cmd = new SqlCommand("connection", _maCnx))
             {
                 string typeDeCompte = "";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nomDeCompte", nomCompte);
                 cmd.Parameters.AddWithValue("@motDePasse", motDePasse);
-                _maCnx.Open();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
-                _maCnx.Close();
 
                 for (int i = dt.Rows[0].Table.Columns.Count - 3; i < dt.Rows[0].Table.Columns.Count; i++)//recherche du type de compte, i correspond au debut des FK
                 {
@@ -76,6 +76,7 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
                 retour[1] = dt.Rows[0][1].ToString();//Pseudo
                 retour[2] = typeDeCompte;//type de compte
             }
+            _maCnx.Close();
 
             return retour;
         }
@@ -84,15 +85,15 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
         {
             string[] retour;
             DataTable sdt = new DataTable();
+            _maCnx.Open();
             using (SqlCommand souscmd = new SqlCommand("recuperationDeCompte", _maCnx))
             {
                 souscmd.CommandType = CommandType.StoredProcedure;
                 souscmd.Parameters.AddWithValue("@nomDeTable", infocompte[2]);
                 souscmd.Parameters.AddWithValue("@id", int.Parse(infocompte[0]));
-                _maCnx.Open();
+
                 SqlDataAdapter sda = new SqlDataAdapter(souscmd);
                 sda.Fill(sdt);
-                _maCnx.Close();
                 retour = new string[sdt.Rows[0].Table.Columns.Count];
                 for (int y = 0; y < sdt.Rows[0].Table.Columns.Count; y++)// recuperation de la table contenant les infos du compte 
                 {
@@ -100,53 +101,45 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
                 }
 
             }
+            _maCnx.Close();
+
             return retour;
         }
         #endregion
 
         #region creation de compte
 
-        public static void creationStandart(Compte o, string mdp)
+        public static void CreationStandart(Compte o, string mdp)
         {
             try
             {
-                string procedure = "";
-                switch (o.Type_de_compte)
-                {
-                    case "administrateur": procedure = "AjoutPersoAdmin";
-                        break;
-                    case "client": procedure = "AjoutPersoClient";
-                        break;
-                    case "pizzeria": procedure = "AjoutPersoPizzeria";
-                        break;
-                }
+
                 _maCnx.Open();//bien mettre en dehors du using
 
                 using (SqlCommand cmd = new SqlCommand("CreationComptePerso", _maCnx))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@nom_de_compte", SqlDbType.VarChar).Value = o.Nom_de_compte;
+                    cmd.Parameters.AddWithValue("@mot_de_passe", SqlDbType.VarChar).Value = mdp;
+                    cmd.Parameters.AddWithValue("@type_de_compte", SqlDbType.VarChar).Value = o.Type_de_compte;
+                    cmd.Parameters.AddWithValue("@nom", SqlDbType.VarChar).Value = o.Nom;
+                    cmd.Parameters.AddWithValue("@prenom", SqlDbType.VarChar).Value = o.Prenom;
+                    cmd.Parameters.AddWithValue("@adresse", SqlDbType.VarChar).Value = o.Adresse;
+                    cmd.Parameters.AddWithValue("@no_telephone", SqlDbType.VarChar).Value = o.No_telephone;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = o.Email;
+                    if (o.Nom_pizzeria == null)
+                    {
+                        cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                        cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = o.Nom_pizzeria;
+                        cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = o.Adresse_pizzeria;
+                    }
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@nom_de_compte", SqlDbType.VarChar).Value = o.Nom_de_compte;
-                cmd.Parameters.AddWithValue("@mot_de_passe", SqlDbType.VarChar).Value = mdp;
-                cmd.Parameters.AddWithValue("@type_de_compte", SqlDbType.VarChar).Value = o.Type_de_compte;
-                cmd.Parameters.AddWithValue("@nom", SqlDbType.VarChar).Value = o.Nom;
-                cmd.Parameters.AddWithValue("@prenom", SqlDbType.VarChar).Value = o.Prenom;
-                cmd.Parameters.AddWithValue("@adresse", SqlDbType.VarChar).Value = o.Adresse;
-                cmd.Parameters.AddWithValue("@no_telephone", SqlDbType.VarChar).Value = o.No_telephone;
-                cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = o.Email;
-                if (o.Nom_pizzeria == null)
-                {
-                    cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = "NULL";
-                    cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = "NULL";
-                }
-                else 
-                {
-                    cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = o.Nom_pizzeria;
-                    cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = o.Adresse_pizzeria;
-                }
 
-
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
 
 
                 }
@@ -161,7 +154,54 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
 
         #endregion
 
+        #region modification de compte
 
+        public static void ModificationStandard(Compte infoPrecedente, string mdp)
+        {
+            try
+            {
+                _maCnx.Open();//bien mettre en dehors du using
+
+
+                using (SqlCommand cmd = new SqlCommand("ModificationComptePerso", _maCnx))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_compte", SqlDbType.VarChar).Value = infoPrecedente.Id_compte;
+                    cmd.Parameters.AddWithValue("@id_contenue", SqlDbType.VarChar).Value = infoPrecedente.Id_contenue;
+                    cmd.Parameters.AddWithValue("@nom_de_compte", SqlDbType.VarChar).Value = infoPrecedente.Nom_de_compte;
+                    cmd.Parameters.AddWithValue("@mot_de_passe", SqlDbType.VarChar).Value = mdp;
+                    cmd.Parameters.AddWithValue("@type_de_compte", SqlDbType.VarChar).Value = infoPrecedente.Type_de_compte;
+                    cmd.Parameters.AddWithValue("@nom", SqlDbType.VarChar).Value = infoPrecedente.Nom;
+                    cmd.Parameters.AddWithValue("@prenom", SqlDbType.VarChar).Value = infoPrecedente.Prenom;
+                    cmd.Parameters.AddWithValue("@adresse", SqlDbType.VarChar).Value = infoPrecedente.Adresse;
+                    cmd.Parameters.AddWithValue("@no_telephone", SqlDbType.VarChar).Value = infoPrecedente.No_telephone;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = infoPrecedente.Email;
+                    if (infoPrecedente.Nom_pizzeria == null)
+                    {
+                        cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                        cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = "NULL";
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@nom_pizzeria", SqlDbType.VarChar).Value = infoPrecedente.Nom_pizzeria;
+                        cmd.Parameters.AddWithValue("@adresse_pizzeria", SqlDbType.VarChar).Value = infoPrecedente.Adresse_pizzeria;
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+                _maCnx.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+          }
+
+        #endregion
+
+        #region suppression
+
+        #endregion 
 
         static DAL()
         {
