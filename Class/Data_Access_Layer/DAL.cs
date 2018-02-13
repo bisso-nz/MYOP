@@ -40,7 +40,7 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
             catch (Exception ex)
             {
                 _maCnx.Close();
-                throw new IndexOutOfRangeException();
+                throw new Exception();
                 // Gérer les erreurs ici.                
             }
             return o;
@@ -109,7 +109,7 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
 
         #region creation de compte
 
-        public static void CreationStandart(Compte o, string mdp)
+        public static void CreationStandard(Compte o, string mdp)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                throw new Exception();
             }
         }
 
@@ -190,9 +190,9 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
                 }
                 _maCnx.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex);
+                throw new Exception();
             }
 
           }
@@ -200,6 +200,26 @@ namespace MYOP_Model_DAL.Data_Access_Layer//a changer selon le projet
         #endregion
 
         #region suppression
+
+        public static void SuppresionPerso(Compte o)
+        {
+            try
+            {
+                _maCnx.Open();
+                using (SqlCommand cmd = new SqlCommand("SuppresionPerso", _maCnx))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = int.Parse( o.Id_compte);
+                    cmd.ExecuteNonQuery();
+                }
+                _maCnx.Close();
+            }
+            catch
+            {
+                throw new Exception();
+            }
+
+        }
 
         #endregion 
 
