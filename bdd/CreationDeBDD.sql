@@ -144,42 +144,39 @@ CREATE TABLE [dbo].[menu] (
 );
 
 CREATE TABLE [dbo].[composition] (
-    [pizza_id]       INT IDENTITY (1, 1) NOT NULL,
+    [pizza_id]       INT NOT NULL,
     [ingredients_id] INT NOT NULL,
-    CONSTRAINT [PK_composition] PRIMARY KEY CLUSTERED ([pizza_id] ASC),
-    CONSTRAINT [FK_composition_ingredients] FOREIGN KEY ([ingredients_id]) REFERENCES [dbo].[ingredients] ([Id])
+    CONSTRAINT [FK_composition_ingredients] FOREIGN KEY ([ingredients_id]) REFERENCES [dbo].[ingredients] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_composition_pizza] FOREIGN KEY ([pizza_id]) REFERENCES [dbo].[pizza] ([Id]) ON DELETE CASCADE
 );
 
 CREATE TABLE [dbo].[composition_menu] (
-    [menu_id]     INT IDENTITY (1, 1) NOT NULL,
+    [menu_id]     INT NOT NULL,
     [pizza_id]    INT NOT NULL,
     [produits_id] INT NOT NULL,
-    PRIMARY KEY CLUSTERED ([menu_id] ASC),
-    CONSTRAINT [FK_composition_menu_pizza] FOREIGN KEY ([pizza_id]) REFERENCES [dbo].[pizza] ([Id]),
-    CONSTRAINT [FK_composition_menu_produits] FOREIGN KEY ([produits_id]) REFERENCES [dbo].[produits] ([Id])
+    CONSTRAINT [FK_composition_menu_menu] FOREIGN KEY ([menu_id]) REFERENCES [dbo].[menu] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_composition_menu_pizza] FOREIGN KEY ([pizza_id]) REFERENCES [dbo].[pizza] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_composition_menu_produits] FOREIGN KEY ([produits_id]) REFERENCES [dbo].[produits] ([Id]) ON DELETE CASCADE
 );
 
 
 CREATE TABLE [dbo].[commande_menu] (
-    [commande_id] INT IDENTITY (1, 1) NOT NULL,
-    [menu_id]     INT NULL,
-    PRIMARY KEY CLUSTERED ([commande_id] ASC),
-    CONSTRAINT [FK_commande_menu_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id]),
-    CONSTRAINT [FK_commande_menu_menu] FOREIGN KEY ([menu_id]) REFERENCES [dbo].[menu] ([Id])
+    [commande_id] INT NOT NULL,
+    [menu_id]     INT NOT NULL,
+    CONSTRAINT [FK_commande_menu_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_commande_menu_menu] FOREIGN KEY ([menu_id]) REFERENCES [dbo].[menu] ([Id]) ON DELETE CASCADE
 );
 
 CREATE TABLE [dbo].[commande_pizza] (
-    [commande_id] INT IDENTITY (1, 1) NOT NULL,
-    [pizza_id]    INT NULL,
-    PRIMARY KEY CLUSTERED ([commande_id] ASC),
-    CONSTRAINT [FK_commande_pizza_pizza] FOREIGN KEY ([pizza_id]) REFERENCES [dbo].[pizza] ([Id]),
-    CONSTRAINT [FK_commande_pizza_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id])
+    [commande_id] INT NOT NULL,
+    [pizza_id]    INT NOT NULL,
+    CONSTRAINT [FK_commande_pizza_pizza] FOREIGN KEY ([pizza_id]) REFERENCES [dbo].[pizza] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_commande_pizza_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id]) ON DELETE CASCADE
 );
 
 CREATE TABLE [dbo].[commande_produits] (
-    [commande_id] INT IDENTITY (1, 1) NOT NULL,
-    [produits_id] INT NULL,
-    PRIMARY KEY CLUSTERED ([commande_id] ASC),
-    CONSTRAINT [FK_commande_produits_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id]),
-    CONSTRAINT [FK_commande_produits_produits] FOREIGN KEY ([produits_id]) REFERENCES [dbo].[produits] ([Id])
+    [commande_id] INT NOT NULL,
+    [produits_id] INT NOT NULL,
+    CONSTRAINT [FK_commande_produits_commande] FOREIGN KEY ([commande_id]) REFERENCES [dbo].[commande] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_commande_produits_produits] FOREIGN KEY ([produits_id]) REFERENCES [dbo].[produits] ([Id]) ON DELETE CASCADE
 );
