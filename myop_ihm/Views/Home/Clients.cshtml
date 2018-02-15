@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Nos Clients";
+    Layout = "~/Views/Shared/_LayoutSiteVitrine.cshtml";
+}
+
+<div class="container" style="background: rgba(255, 255, 255, 0.82); color: black; border: 1px groove black;">
+    <div class="text-center">
+        <h2 class="text-capitalize" style="margin-top:15px;padding-bottom:80px">Ils nous font déjà confiance</h2>
+    </div>
+    <div class="portfolio">
+        <div class="wrapper">
+            @* Créer une méthode qui affiche un tableau 2 lignes 4 colonnes avec des logos tirées au hasard ou un petit portofolio*@
+            <div class="container">
+                <div class="row justify-content-center" style="padding-bottom:2em;">
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" style="padding-bottom:2em;">
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" style="padding-bottom:2em;">
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                    <p class="text-center">Ces restaurateurs sont heureux d'utiliser chaque jour notre service.<br />
+                <h3 class="text-center">Faites en parti !</h3></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<style>
+            h2 {
+                text-align: center;
+                padding: 20px;
+            }
+            /* Slider */
+
+            .slick-slide {
+                margin: 0px 20px;
+            }
+
+                .slick-slide img {
+                    width: 100%;
+                }
+
+            .slick-slider {
+                position: relative;
+                display: block;
+                box-sizing: border-box;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+                -khtml-user-select: none;
+                -ms-touch-action: pan-y;
+                touch-action: pan-y;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .slick-list {
+                position: relative;
+                display: block;
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+            }
+
+                .slick-list:focus {
+                    outline: none;
+                }
+
+                .slick-list.dragging {
+                    cursor: pointer;
+                    cursor: hand;
+                }
+
+            .slick-slider .slick-track,
+            .slick-slider .slick-list {
+                -webkit-transform: translate3d(0, 0, 0);
+                -moz-transform: translate3d(0, 0, 0);
+                -ms-transform: translate3d(0, 0, 0);
+                -o-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            .slick-track {
+                position: relative;
+                top: 0;
+                left: 0;
+                display: block;
+            }
+
+                .slick-track:before,
+                .slick-track:after {
+                    display: table;
+                    content: '';
+                }
+
+                .slick-track:after {
+                    clear: both;
+                }
+
+            .slick-loading .slick-track {
+                visibility: hidden;
+            }
+
+            .slick-slide {
+                display: none;
+                float: left;
+                height: 100%;
+                min-height: 1px;
+            }
+
+            [dir='rtl'] .slick-slide {
+                float: right;
+            }
+
+            .slick-slide img {
+                display: block;
+            }
+
+            .slick-slide.slick-loading img {
+                display: none;
+            }
+
+            .slick-slide.dragging img {
+                pointer-events: none;
+            }
+
+            .slick-initialized .slick-slide {
+                display: block;
+            }
+
+            .slick-loading .slick-slide {
+                visibility: hidden;
+            }
+
+            .slick-vertical .slick-slide {
+                display: block;
+                height: auto;
+                border: 1px solid transparent;
+            }
+
+            .slick-arrow.slick-hidden {
+                display: none;
+            }
+        </style>*@
+
+

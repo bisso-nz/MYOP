@@ -1,0 +1,1442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MYOPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="25" />
+          <Property Name="prenom" Type="varchar" MaxLength="25" />
+          <Property Name="no_telephone" Type="varchar" MaxLength="20" />
+          <Property Name="adresse" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="25" />
+          <Property Name="prenom" Type="nvarchar" MaxLength="25" />
+          <Property Name="adresse" Type="nvarchar" MaxLength="100" />
+          <Property Name="no_telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="no_Commande" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="pizzeria_id" Type="int" Nullable="false" />
+          <Property Name="date_commande" Type="datetime" Nullable="false" />
+          <Property Name="heure_livraison" Type="time" Precision="7" />
+          <Property Name="livriaison" Type="bit" />
+          <Property Name="Commentaire" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'G:\PROJECT AFPA\MYOP-IHMENTITY\MYOP_IHM\MYOP_IHM\MYOP_IHM\APP_DATA\MYOPDATA.MDF.dbo.commande_menu' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="commande_menu">
+          <Key>
+            <PropertyRef Name="commande_id" />
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="commande_id" Type="int" Nullable="false" />
+          <Property Name="menu_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'G:\PROJECT AFPA\MYOP-IHMENTITY\MYOP_IHM\MYOP_IHM\MYOP_IHM\APP_DATA\MYOPDATA.MDF.dbo.commande_pizza' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="commande_pizza">
+          <Key>
+            <PropertyRef Name="commande_id" />
+            <PropertyRef Name="pizza_id" />
+          </Key>
+          <Property Name="commande_id" Type="int" Nullable="false" />
+          <Property Name="pizza_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'G:\PROJECT AFPA\MYOP-IHMENTITY\MYOP_IHM\MYOP_IHM\MYOP_IHM\APP_DATA\MYOPDATA.MDF.dbo.commande_produits' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="commande_produits">
+          <Key>
+            <PropertyRef Name="commande_id" />
+            <PropertyRef Name="produits_id" />
+          </Key>
+          <Property Name="commande_id" Type="int" Nullable="false" />
+          <Property Name="produits_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'G:\PROJECT AFPA\MYOP-IHMENTITY\MYOP_IHM\MYOP_IHM\MYOP_IHM\APP_DATA\MYOPDATA.MDF.dbo.composition' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="composition">
+          <Key>
+            <PropertyRef Name="pizza_id" />
+            <PropertyRef Name="ingredients_id" />
+          </Key>
+          <Property Name="pizza_id" Type="int" Nullable="false" />
+          <Property Name="ingredients_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'G:\PROJECT AFPA\MYOP-IHMENTITY\MYOP_IHM\MYOP_IHM\MYOP_IHM\APP_DATA\MYOPDATA.MDF.dbo.composition_menu' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="composition_menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+            <PropertyRef Name="pizza_id" />
+            <PropertyRef Name="produits_id" />
+          </Key>
+          <Property Name="menu_id" Type="int" Nullable="false" />
+          <Property Name="pizza_id" Type="int" Nullable="false" />
+          <Property Name="produits_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="compte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_de_compte" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mot_de_passe" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="administrateur_id" Type="int" />
+          <Property Name="pizzeria_id" Type="int" />
+          <Property Name="client_id" Type="int" />
+          <Property Name="actif" Type="bit" />
+        </EntityType>
+        <EntityType Name="description">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="image" Type="varchar" MaxLength="50" />
+          <Property Name="descriptif" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="horaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pizzeria_id" Type="int" Nullable="false" />
+          <Property Name="jour" Type="varchar" MaxLength="15" />
+          <Property Name="ouverture_matin" Type="time" Precision="7" />
+          <Property Name="fermeture_matin" Type="time" Precision="7" />
+          <Property Name="ouverture_soir" Type="time" Precision="7" />
+          <Property Name="fermeture_soir" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="ingredients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="categorie_id" Type="int" Nullable="false" />
+          <Property Name="pizzeria_id" Type="int" Nullable="false" />
+          <Property Name="prix" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="disponible" Type="bit" Nullable="false" />
+          <Property Name="description_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prix" Type="decimal" Precision="4" Scale="2" />
+        </EntityType>
+        <EntityType Name="pizza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="pizzeria_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pizzeria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="nom_proprietaire" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="prenom_proprietaire" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="adresse" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="adresse_de_facturation" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="no_telephone" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="produits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="categorie_id" Type="int" Nullable="false" />
+          <Property Name="pizzeria_id" Type="int" Nullable="false" />
+          <Property Name="prix" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="disponible" Type="bit" Nullable="false" />
+          <Property Name="description_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="coefficient" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="pizzeria_id" Type="int" />
+          <Property Name="disponible" Type="bit" />
+        </EntityType>
+        <Association Name="FK_commande_menu_commande">
+          <End Role="commande" Type="Self.commande" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_menu" Type="Self.commande_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_menu">
+              <PropertyRef Name="commande_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_menu_menu">
+          <End Role="menu" Type="Self.menu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_menu" Type="Self.commande_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_menu">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_pizza_commande">
+          <End Role="commande" Type="Self.commande" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_pizza" Type="Self.commande_pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_pizza">
+              <PropertyRef Name="commande_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_pizza_pizza">
+          <End Role="pizza" Type="Self.pizza" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_pizza" Type="Self.commande_pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_pizza">
+              <PropertyRef Name="pizza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_produits_commande">
+          <End Role="commande" Type="Self.commande" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_produits" Type="Self.commande_produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_produits">
+              <PropertyRef Name="commande_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_produits_produits">
+          <End Role="produits" Type="Self.produits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="commande_produits" Type="Self.commande_produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande_produits">
+              <PropertyRef Name="produits_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_ToClient">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_ToPiezzria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_ingredients">
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition" Type="Self.composition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ingredients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition">
+              <PropertyRef Name="ingredients_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_menu">
+          <End Role="menu" Type="Self.menu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_pizza">
+          <End Role="pizza" Type="Self.pizza" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="pizza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_produits">
+          <End Role="produits" Type="Self.produits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="produits_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_pizza">
+          <End Role="pizza" Type="Self.pizza" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition" Type="Self.composition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition">
+              <PropertyRef Name="pizza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_compte_toadministrateur">
+          <End Role="administrateur" Type="Self.administrateur" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administrateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="administrateur_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_compte_toclient">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_compte_topizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_horaires_Pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="horaires" Type="Self.horaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="horaires">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_categorie">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="categorie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_description">
+          <End Role="description" Type="Self.description" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="description">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pizza_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pizza">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pizza_type">
+          <End Role="type" Type="Self.type" Multiplicity="1" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pizza">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_categorie">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="categorie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_description">
+          <End Role="description" Type="Self.description" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="description">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_type_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="0..1" />
+          <End Role="type" Type="Self.type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="type">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MYOPModelStoreContainer">
+          <EntitySet Name="administrateur" EntityType="Self.administrateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="commande" EntityType="Self.commande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="compte" EntityType="Self.compte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="description" EntityType="Self.description" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="horaires" EntityType="Self.horaires" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ingredients" EntityType="Self.ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="menu" EntityType="Self.menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pizza" EntityType="Self.pizza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pizzeria" EntityType="Self.pizzeria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="produits" EntityType="Self.produits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="type" EntityType="Self.type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="commande_menu" EntityType="Self.commande_menu" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [commande_menu].[commande_id] AS [commande_id], 
+    [commande_menu].[menu_id] AS [menu_id]
+    FROM [dbo].[commande_menu] AS [commande_menu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="commande_pizza" EntityType="Self.commande_pizza" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [commande_pizza].[commande_id] AS [commande_id], 
+    [commande_pizza].[pizza_id] AS [pizza_id]
+    FROM [dbo].[commande_pizza] AS [commande_pizza]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="commande_produits" EntityType="Self.commande_produits" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [commande_produits].[commande_id] AS [commande_id], 
+    [commande_produits].[produits_id] AS [produits_id]
+    FROM [dbo].[commande_produits] AS [commande_produits]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="composition" EntityType="Self.composition" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [composition].[pizza_id] AS [pizza_id], 
+    [composition].[ingredients_id] AS [ingredients_id]
+    FROM [dbo].[composition] AS [composition]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="composition_menu" EntityType="Self.composition_menu" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [composition_menu].[menu_id] AS [menu_id], 
+    [composition_menu].[pizza_id] AS [pizza_id], 
+    [composition_menu].[produits_id] AS [produits_id]
+    FROM [dbo].[composition_menu] AS [composition_menu]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_commande_menu_commande" Association="Self.FK_commande_menu_commande">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="commande_menu" EntitySet="commande_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_menu_menu" Association="Self.FK_commande_menu_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="commande_menu" EntitySet="commande_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_pizza_commande" Association="Self.FK_commande_pizza_commande">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="commande_pizza" EntitySet="commande_pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_pizza_pizza" Association="Self.FK_commande_pizza_pizza">
+            <End Role="pizza" EntitySet="pizza" />
+            <End Role="commande_pizza" EntitySet="commande_pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_produits_commande" Association="Self.FK_commande_produits_commande">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="commande_produits" EntitySet="commande_produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_produits_produits" Association="Self.FK_commande_produits_produits">
+            <End Role="produits" EntitySet="produits" />
+            <End Role="commande_produits" EntitySet="commande_produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_ToClient" Association="Self.FK_commande_ToClient">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_ToPiezzria" Association="Self.FK_commande_ToPiezzria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_ingredients" Association="Self.FK_composition_ingredients">
+            <End Role="ingredients" EntitySet="ingredients" />
+            <End Role="composition" EntitySet="composition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_menu" Association="Self.FK_composition_menu_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_pizza" Association="Self.FK_composition_menu_pizza">
+            <End Role="pizza" EntitySet="pizza" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_produits" Association="Self.FK_composition_menu_produits">
+            <End Role="produits" EntitySet="produits" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_pizza" Association="Self.FK_composition_pizza">
+            <End Role="pizza" EntitySet="pizza" />
+            <End Role="composition" EntitySet="composition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_compte_toadministrateur" Association="Self.FK_compte_toadministrateur">
+            <End Role="administrateur" EntitySet="administrateur" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_compte_toclient" Association="Self.FK_compte_toclient">
+            <End Role="client" EntitySet="client" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_compte_topizzeria" Association="Self.FK_compte_topizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_horaires_Pizzeria" Association="Self.FK_horaires_Pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="horaires" EntitySet="horaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_categorie" Association="Self.FK_ingredients_categorie">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_description" Association="Self.FK_ingredients_description">
+            <End Role="description" EntitySet="description" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_pizzeria" Association="Self.FK_ingredients_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pizza_pizzeria" Association="Self.FK_pizza_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pizza_type" Association="Self.FK_pizza_type">
+            <End Role="type" EntitySet="type" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_categorie" Association="Self.FK_produits_categorie">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_description" Association="Self.FK_produits_description">
+            <End Role="description" EntitySet="description" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_pizzeria" Association="Self.FK_produits_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_type_pizzeria" Association="Self.FK_type_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="type" EntitySet="type" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MYOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="no_telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="compte" Relationship="Self.FK_compte_toadministrateur" FromRole="administrateur" ToRole="compte" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ingredients" Relationship="Self.FK_ingredients_categorie" FromRole="categorie" ToRole="ingredients" />
+          <NavigationProperty Name="produits" Relationship="Self.FK_produits_categorie" FromRole="categorie" ToRole="produits" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="prenom" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="no_telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="commande" Relationship="Self.FK_commande_ToClient" FromRole="client" ToRole="commande" />
+          <NavigationProperty Name="compte" Relationship="Self.FK_compte_toclient" FromRole="client" ToRole="compte" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="no_Commande" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="pizzeria_id" Type="Int32" Nullable="false" />
+          <Property Name="date_commande" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="heure_livraison" Type="Time" Precision="7" />
+          <Property Name="livriaison" Type="Boolean" />
+          <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="client" Relationship="Self.FK_commande_ToClient" FromRole="commande" ToRole="client" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_commande_ToPiezzria" FromRole="commande" ToRole="pizzeria" />
+          <NavigationProperty Name="menu" Relationship="Self.commande_menu" FromRole="commande" ToRole="menu" />
+          <NavigationProperty Name="pizza" Relationship="Self.commande_pizza" FromRole="commande" ToRole="pizza" />
+          <NavigationProperty Name="produits" Relationship="Self.commande_produits" FromRole="commande" ToRole="produits" />
+        </EntityType>
+        <EntityType Name="compte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_de_compte" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mot_de_passe" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="administrateur_id" Type="Int32" />
+          <Property Name="pizzeria_id" Type="Int32" />
+          <Property Name="client_id" Type="Int32" />
+          <Property Name="actif" Type="Boolean" />
+          <NavigationProperty Name="administrateur" Relationship="Self.FK_compte_toadministrateur" FromRole="compte" ToRole="administrateur" />
+          <NavigationProperty Name="client" Relationship="Self.FK_compte_toclient" FromRole="compte" ToRole="client" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_compte_topizzeria" FromRole="compte" ToRole="pizzeria" />
+        </EntityType>
+        <EntityType Name="description">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descriptif" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ingredients" Relationship="Self.FK_ingredients_description" FromRole="description" ToRole="ingredients" />
+          <NavigationProperty Name="produits" Relationship="Self.FK_produits_description" FromRole="description" ToRole="produits" />
+        </EntityType>
+        <EntityType Name="horaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pizzeria_id" Type="Int32" Nullable="false" />
+          <Property Name="jour" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ouverture_matin" Type="Time" Precision="7" />
+          <Property Name="fermeture_matin" Type="Time" Precision="7" />
+          <Property Name="ouverture_soir" Type="Time" Precision="7" />
+          <Property Name="fermeture_soir" Type="Time" Precision="7" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_horaires_Pizzeria" FromRole="horaires" ToRole="pizzeria" />
+        </EntityType>
+        <EntityType Name="ingredients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="categorie_id" Type="Int32" Nullable="false" />
+          <Property Name="pizzeria_id" Type="Int32" Nullable="false" />
+          <Property Name="prix" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="disponible" Type="Boolean" Nullable="false" />
+          <Property Name="description_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categorie" Relationship="Self.FK_ingredients_categorie" FromRole="ingredients" ToRole="categorie" />
+          <NavigationProperty Name="description" Relationship="Self.FK_ingredients_description" FromRole="ingredients" ToRole="description" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_ingredients_pizzeria" FromRole="ingredients" ToRole="pizzeria" />
+          <NavigationProperty Name="pizza" Relationship="Self.composition" FromRole="ingredients" ToRole="pizza" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prix" Type="Decimal" Precision="4" Scale="2" />
+          <NavigationProperty Name="composition_menu" Relationship="Self.FK_composition_menu_menu" FromRole="menu" ToRole="composition_menu" />
+          <NavigationProperty Name="commande" Relationship="Self.commande_menu" FromRole="menu" ToRole="commande" />
+        </EntityType>
+        <EntityType Name="pizza">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="pizzeria_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="composition_menu" Relationship="Self.FK_composition_menu_pizza" FromRole="pizza" ToRole="composition_menu" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_pizza_pizzeria" FromRole="pizza" ToRole="pizzeria" />
+          <NavigationProperty Name="type" Relationship="Self.FK_pizza_type" FromRole="pizza" ToRole="type" />
+          <NavigationProperty Name="commande" Relationship="Self.commande_pizza" FromRole="pizza" ToRole="commande" />
+          <NavigationProperty Name="ingredients" Relationship="Self.composition" FromRole="pizza" ToRole="ingredients" />
+        </EntityType>
+        <EntityType Name="pizzeria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom_proprietaire" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom_proprietaire" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse_de_facturation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="no_telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="commande" Relationship="Self.FK_commande_ToPiezzria" FromRole="pizzeria" ToRole="commande" />
+          <NavigationProperty Name="compte" Relationship="Self.FK_compte_topizzeria" FromRole="pizzeria" ToRole="compte" />
+          <NavigationProperty Name="horaires" Relationship="Self.FK_horaires_Pizzeria" FromRole="pizzeria" ToRole="horaires" />
+          <NavigationProperty Name="ingredients" Relationship="Self.FK_ingredients_pizzeria" FromRole="pizzeria" ToRole="ingredients" />
+          <NavigationProperty Name="pizza" Relationship="Self.FK_pizza_pizzeria" FromRole="pizzeria" ToRole="pizza" />
+          <NavigationProperty Name="produits" Relationship="Self.FK_produits_pizzeria" FromRole="pizzeria" ToRole="produits" />
+          <NavigationProperty Name="type" Relationship="Self.FK_type_pizzeria" FromRole="pizzeria" ToRole="type" />
+        </EntityType>
+        <EntityType Name="produits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="categorie_id" Type="Int32" Nullable="false" />
+          <Property Name="pizzeria_id" Type="Int32" Nullable="false" />
+          <Property Name="prix" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="disponible" Type="Boolean" Nullable="false" />
+          <Property Name="description_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categorie" Relationship="Self.FK_produits_categorie" FromRole="produits" ToRole="categorie" />
+          <NavigationProperty Name="description" Relationship="Self.FK_produits_description" FromRole="produits" ToRole="description" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_produits_pizzeria" FromRole="produits" ToRole="pizzeria" />
+          <NavigationProperty Name="composition_menu" Relationship="Self.FK_composition_menu_produits" FromRole="produits" ToRole="composition_menu" />
+          <NavigationProperty Name="commande" Relationship="Self.commande_produits" FromRole="produits" ToRole="commande" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coefficient" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="pizzeria_id" Type="Int32" />
+          <Property Name="disponible" Type="Boolean" />
+          <NavigationProperty Name="pizza" Relationship="Self.FK_pizza_type" FromRole="type" ToRole="pizza" />
+          <NavigationProperty Name="pizzeria" Relationship="Self.FK_type_pizzeria" FromRole="type" ToRole="pizzeria" />
+        </EntityType>
+        <EntityType Name="composition_menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+            <PropertyRef Name="pizza_id" />
+            <PropertyRef Name="produits_id" />
+          </Key>
+          <Property Name="menu_id" Type="Int32" Nullable="false" />
+          <Property Name="pizza_id" Type="Int32" Nullable="false" />
+          <Property Name="produits_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="menu" Relationship="Self.FK_composition_menu_menu" FromRole="composition_menu" ToRole="menu" />
+          <NavigationProperty Name="pizza" Relationship="Self.FK_composition_menu_pizza" FromRole="composition_menu" ToRole="pizza" />
+          <NavigationProperty Name="produits" Relationship="Self.FK_composition_menu_produits" FromRole="composition_menu" ToRole="produits" />
+        </EntityType>
+        <Association Name="FK_compte_toadministrateur">
+          <End Role="administrateur" Type="Self.administrateur" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administrateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="administrateur_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_categorie">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="categorie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_categorie">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="categorie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_ToClient">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_compte_toclient">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_commande_ToPiezzria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_compte_topizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="0..1" />
+          <End Role="compte" Type="Self.compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="compte">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_description">
+          <End Role="description" Type="Self.description" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="description">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_description">
+          <End Role="description" Type="Self.description" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="description">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_horaires_Pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="horaires" Type="Self.horaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="horaires">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ingredients_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ingredients">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_menu">
+          <End Role="menu" Type="Self.menu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_pizza">
+          <End Role="pizza" Type="Self.pizza" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizza">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="pizza_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pizza_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pizza">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pizza_type">
+          <End Role="type" Type="Self.type" Multiplicity="1" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pizza">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_produits_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="1" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="produits">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_type_pizzeria">
+          <End Role="pizzeria" Type="Self.pizzeria" Multiplicity="0..1" />
+          <End Role="type" Type="Self.type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pizzeria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="type">
+              <PropertyRef Name="pizzeria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_composition_menu_produits">
+          <End Role="produits" Type="Self.produits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="composition_menu" Type="Self.composition_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="composition_menu">
+              <PropertyRef Name="produits_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="commande_menu">
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+        </Association>
+        <Association Name="commande_pizza">
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+        </Association>
+        <Association Name="commande_produits">
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <End Role="produits" Type="Self.produits" Multiplicity="*" />
+        </Association>
+        <Association Name="composition">
+          <End Role="ingredients" Type="Self.ingredients" Multiplicity="*" />
+          <End Role="pizza" Type="Self.pizza" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MYOPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrateur" EntityType="Self.administrateur" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="commande" EntityType="Self.commande" />
+          <EntitySet Name="compte" EntityType="Self.compte" />
+          <EntitySet Name="description" EntityType="Self.description" />
+          <EntitySet Name="horaires" EntityType="Self.horaires" />
+          <EntitySet Name="ingredients" EntityType="Self.ingredients" />
+          <EntitySet Name="menu" EntityType="Self.menu" />
+          <EntitySet Name="pizza" EntityType="Self.pizza" />
+          <EntitySet Name="pizzeria" EntityType="Self.pizzeria" />
+          <EntitySet Name="produits" EntityType="Self.produits" />
+          <EntitySet Name="type" EntityType="Self.type" />
+          <EntitySet Name="composition_menu" EntityType="Self.composition_menu" />
+          <AssociationSet Name="FK_compte_toadministrateur" Association="Self.FK_compte_toadministrateur">
+            <End Role="administrateur" EntitySet="administrateur" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_categorie" Association="Self.FK_ingredients_categorie">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_categorie" Association="Self.FK_produits_categorie">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_ToClient" Association="Self.FK_commande_ToClient">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK_compte_toclient" Association="Self.FK_compte_toclient">
+            <End Role="client" EntitySet="client" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_commande_ToPiezzria" Association="Self.FK_commande_ToPiezzria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK_compte_topizzeria" Association="Self.FK_compte_topizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="compte" EntitySet="compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_description" Association="Self.FK_ingredients_description">
+            <End Role="description" EntitySet="description" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_description" Association="Self.FK_produits_description">
+            <End Role="description" EntitySet="description" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_horaires_Pizzeria" Association="Self.FK_horaires_Pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="horaires" EntitySet="horaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ingredients_pizzeria" Association="Self.FK_ingredients_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="ingredients" EntitySet="ingredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_menu" Association="Self.FK_composition_menu_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_pizza" Association="Self.FK_composition_menu_pizza">
+            <End Role="pizza" EntitySet="pizza" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pizza_pizzeria" Association="Self.FK_pizza_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pizza_type" Association="Self.FK_pizza_type">
+            <End Role="type" EntitySet="type" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_produits_pizzeria" Association="Self.FK_produits_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_type_pizzeria" Association="Self.FK_type_pizzeria">
+            <End Role="pizzeria" EntitySet="pizzeria" />
+            <End Role="type" EntitySet="type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_composition_menu_produits" Association="Self.FK_composition_menu_produits">
+            <End Role="produits" EntitySet="produits" />
+            <End Role="composition_menu" EntitySet="composition_menu" />
+          </AssociationSet>
+          <AssociationSet Name="commande_menu" Association="Self.commande_menu">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="menu" EntitySet="menu" />
+          </AssociationSet>
+          <AssociationSet Name="commande_pizza" Association="Self.commande_pizza">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+          <AssociationSet Name="commande_produits" Association="Self.commande_produits">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="produits" EntitySet="produits" />
+          </AssociationSet>
+          <AssociationSet Name="composition" Association="Self.composition">
+            <End Role="ingredients" EntitySet="ingredients" />
+            <End Role="pizza" EntitySet="pizza" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MYOPModelStoreContainer" CdmEntityContainer="MYOPEntities">
+          <EntitySetMapping Name="administrateur">
+            <EntityTypeMapping TypeName="MYOPModel.administrateur">
+              <MappingFragment StoreEntitySet="administrateur">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorie">
+            <EntityTypeMapping TypeName="MYOPModel.categorie">
+              <MappingFragment StoreEntitySet="categorie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="MYOPModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commande">
+            <EntityTypeMapping TypeName="MYOPModel.commande">
+              <MappingFragment StoreEntitySet="commande">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="no_Commande" ColumnName="no_Commande" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="date_commande" ColumnName="date_commande" />
+                <ScalarProperty Name="heure_livraison" ColumnName="heure_livraison" />
+                <ScalarProperty Name="livriaison" ColumnName="livriaison" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compte">
+            <EntityTypeMapping TypeName="MYOPModel.compte">
+              <MappingFragment StoreEntitySet="compte">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom_de_compte" ColumnName="nom_de_compte" />
+                <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+                <ScalarProperty Name="administrateur_id" ColumnName="administrateur_id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="actif" ColumnName="actif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="description">
+            <EntityTypeMapping TypeName="MYOPModel.description">
+              <MappingFragment StoreEntitySet="description">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="descriptif" ColumnName="descriptif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horaires">
+            <EntityTypeMapping TypeName="MYOPModel.horaires">
+              <MappingFragment StoreEntitySet="horaires">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="jour" ColumnName="jour" />
+                <ScalarProperty Name="ouverture_matin" ColumnName="ouverture_matin" />
+                <ScalarProperty Name="fermeture_matin" ColumnName="fermeture_matin" />
+                <ScalarProperty Name="ouverture_soir" ColumnName="ouverture_soir" />
+                <ScalarProperty Name="fermeture_soir" ColumnName="fermeture_soir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ingredients">
+            <EntityTypeMapping TypeName="MYOPModel.ingredients">
+              <MappingFragment StoreEntitySet="ingredients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="categorie_id" ColumnName="categorie_id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="description_id" ColumnName="description_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menu">
+            <EntityTypeMapping TypeName="MYOPModel.menu">
+              <MappingFragment StoreEntitySet="menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pizza">
+            <EntityTypeMapping TypeName="MYOPModel.pizza">
+              <MappingFragment StoreEntitySet="pizza">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pizzeria">
+            <EntityTypeMapping TypeName="MYOPModel.pizzeria">
+              <MappingFragment StoreEntitySet="pizzeria">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="nom_proprietaire" ColumnName="nom_proprietaire" />
+                <ScalarProperty Name="prenom_proprietaire" ColumnName="prenom_proprietaire" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="adresse_de_facturation" ColumnName="adresse_de_facturation" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produits">
+            <EntityTypeMapping TypeName="MYOPModel.produits">
+              <MappingFragment StoreEntitySet="produits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="categorie_id" ColumnName="categorie_id" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="description_id" ColumnName="description_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="type">
+            <EntityTypeMapping TypeName="MYOPModel.type">
+              <MappingFragment StoreEntitySet="type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+                <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="composition_menu">
+            <EntityTypeMapping TypeName="MYOPModel.composition_menu">
+              <MappingFragment StoreEntitySet="composition_menu">
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
+                <ScalarProperty Name="produits_id" ColumnName="produits_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="commande_menu" TypeName="MYOPModel.commande_menu" StoreEntitySet="commande_menu">
+            <EndProperty Name="commande">
+              <ScalarProperty Name="Id" ColumnName="commande_id" />
+            </EndProperty>
+            <EndProperty Name="menu">
+              <ScalarProperty Name="Id" ColumnName="menu_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="commande_pizza" TypeName="MYOPModel.commande_pizza" StoreEntitySet="commande_pizza">
+            <EndProperty Name="commande">
+              <ScalarProperty Name="Id" ColumnName="commande_id" />
+            </EndProperty>
+            <EndProperty Name="pizza">
+              <ScalarProperty Name="Id" ColumnName="pizza_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="commande_produits" TypeName="MYOPModel.commande_produits" StoreEntitySet="commande_produits">
+            <EndProperty Name="commande">
+              <ScalarProperty Name="Id" ColumnName="commande_id" />
+            </EndProperty>
+            <EndProperty Name="produits">
+              <ScalarProperty Name="Id" ColumnName="produits_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="composition" TypeName="MYOPModel.composition" StoreEntitySet="composition">
+            <EndProperty Name="ingredients">
+              <ScalarProperty Name="Id" ColumnName="ingredients_id" />
+            </EndProperty>
+            <EndProperty Name="pizza">
+              <ScalarProperty Name="Id" ColumnName="pizza_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

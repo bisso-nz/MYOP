@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Connexion</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/connexionStyle.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="height :inherit;">
+            <div class="col-sm-6">
+                <div class="text-uppercase text-center">
+                    <h1 id="title"><span style="color: red;">My</span> Own <span style="color: green;">Pizza</span></h1>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <h2>Connexion</h2>
+                </div>
+                <div class="row form-connexion">
+                    @using (Html.BeginForm("Connexion", "Home", FormMethod.Post, new
+                    {
+                        @class = "form-connexion"
+                    }))
+                    {
+                        @Html.TextBox("txtNomCompte", null, new
+       {
+           @class = "form-control form-nom",
+           @placeholder = "Nom de Compte"
+       })
+                        @Html.Password("txtMdp", null, new
+       {
+           @class = "form-control form-mdp",
+           @placeholder = "Mot de passe"
+       })
+                        <span style="color:red; font-size:12px;">@ViewBag.ErrorConn</span>
+                        <input type="submit" value="Se Connecter" class="btn btn-light form-btn" />  
+                        @Html.ActionLink("Pas encore de compte ? Inscrivez vous !", "Inscription", "Home", new
+                   {
+                       @class = "form-link",
+
+                   })
+    <br />
+                        @Html.ActionLink("Mot de passe perdu ? ", "NouveauMdp", "Home", new
+                   {
+                       @class = "form-link",
+
+                   })
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

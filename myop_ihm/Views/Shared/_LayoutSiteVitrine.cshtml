@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+</head>
+<body>
+    @*Header*@
+    <div class="header sticky-wrapper">
+        <div class="wrapper">
+            <div id="logo">
+                <a href='@Url.Action("Index","Home")'><img src="~/Content/images/logo_myop.png" /></a>
+
+
+            </div>
+            @*Menu*@
+            <nav class="navbar navbar-expand-sm" id="main-nav">
+                <div class="navbar ">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Presentation", "Presentation", "Home", new
+                   {
+                       @class = "nav-link active"
+                   })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Nos clients", "Clients", "Home", new
+                   {
+                       @class = "nav-link"
+                   })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Pricing", "Pricing", "Home", new
+                   {
+                       @class = "nav-link"
+                   })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("FAQ", "Faq", "Home", new
+                   {
+                       @class = "nav-link"
+                   })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Contact", "Contact", "Home", new
+                   {
+                       @class = "nav-link"
+                   })
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" id="search-form">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Rechercher">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    </form>
+                </div>
+            </nav>@* / Menu*@
+
+            @*Menu Connexion*@
+            <nav id="sub-nav">
+                <ul class="nav">
+                    <li class="nav-item" style="border-right: 2px solid white;">
+                        @Html.ActionLink("Connexion", "Connexion", "Home", new
+                   {
+                       @class = "nav-link",
+
+                   })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Inscrption", "Inscription", "Home", new
+                   {
+                       @class = "nav-link",
+
+                   })
+                    </li>
+                </ul>
+            </nav>@* / Menu Connexion*@
+        </div>
+    </div>@* / Header*@
+
+
+    <div class="row" id="main">
+        <div class="container">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="row">
+        <div class="footer" style="background:black;">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Super site
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

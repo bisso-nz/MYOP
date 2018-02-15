@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MYOPModelStoreContainer" CdmEntityContainer="MYOPEntities">
+    <EntitySetMapping Name="administrateur">
+      <EntityTypeMapping TypeName="MYOPModel.administrateur">
+        <MappingFragment StoreEntitySet="administrateur">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categorie">
+      <EntityTypeMapping TypeName="MYOPModel.categorie">
+        <MappingFragment StoreEntitySet="categorie">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="MYOPModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="commande">
+      <EntityTypeMapping TypeName="MYOPModel.commande">
+        <MappingFragment StoreEntitySet="commande">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="no_Commande" ColumnName="no_Commande" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="date_commande" ColumnName="date_commande" />
+          <ScalarProperty Name="heure_livraison" ColumnName="heure_livraison" />
+          <ScalarProperty Name="livriaison" ColumnName="livriaison" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="compte">
+      <EntityTypeMapping TypeName="MYOPModel.compte">
+        <MappingFragment StoreEntitySet="compte">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom_de_compte" ColumnName="nom_de_compte" />
+          <ScalarProperty Name="mot_de_passe" ColumnName="mot_de_passe" />
+          <ScalarProperty Name="administrateur_id" ColumnName="administrateur_id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="actif" ColumnName="actif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="description">
+      <EntityTypeMapping TypeName="MYOPModel.description">
+        <MappingFragment StoreEntitySet="description">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="descriptif" ColumnName="descriptif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="horaires">
+      <EntityTypeMapping TypeName="MYOPModel.horaires">
+        <MappingFragment StoreEntitySet="horaires">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="jour" ColumnName="jour" />
+          <ScalarProperty Name="ouverture_matin" ColumnName="ouverture_matin" />
+          <ScalarProperty Name="fermeture_matin" ColumnName="fermeture_matin" />
+          <ScalarProperty Name="ouverture_soir" ColumnName="ouverture_soir" />
+          <ScalarProperty Name="fermeture_soir" ColumnName="fermeture_soir" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ingredients">
+      <EntityTypeMapping TypeName="MYOPModel.ingredients">
+        <MappingFragment StoreEntitySet="ingredients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="categorie_id" ColumnName="categorie_id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="disponible" ColumnName="disponible" />
+          <ScalarProperty Name="description_id" ColumnName="description_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="menu">
+      <EntityTypeMapping TypeName="MYOPModel.menu">
+        <MappingFragment StoreEntitySet="menu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pizza">
+      <EntityTypeMapping TypeName="MYOPModel.pizza">
+        <MappingFragment StoreEntitySet="pizza">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="type_id" ColumnName="type_id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pizzeria">
+      <EntityTypeMapping TypeName="MYOPModel.pizzeria">
+        <MappingFragment StoreEntitySet="pizzeria">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="nom_proprietaire" ColumnName="nom_proprietaire" />
+          <ScalarProperty Name="prenom_proprietaire" ColumnName="prenom_proprietaire" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="adresse_de_facturation" ColumnName="adresse_de_facturation" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="no_telephone" ColumnName="no_telephone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="produits">
+      <EntityTypeMapping TypeName="MYOPModel.produits">
+        <MappingFragment StoreEntitySet="produits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="categorie_id" ColumnName="categorie_id" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="disponible" ColumnName="disponible" />
+          <ScalarProperty Name="description_id" ColumnName="description_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="type">
+      <EntityTypeMapping TypeName="MYOPModel.type">
+        <MappingFragment StoreEntitySet="type">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+          <ScalarProperty Name="pizzeria_id" ColumnName="pizzeria_id" />
+          <ScalarProperty Name="disponible" ColumnName="disponible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="composition_menu">
+      <EntityTypeMapping TypeName="MYOPModel.composition_menu">
+        <MappingFragment StoreEntitySet="composition_menu">
+          <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+          <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
+          <ScalarProperty Name="produits_id" ColumnName="produits_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="commande_menu" TypeName="MYOPModel.commande_menu" StoreEntitySet="commande_menu">
+      <EndProperty Name="commande">
+        <ScalarProperty Name="Id" ColumnName="commande_id" />
+      </EndProperty>
+      <EndProperty Name="menu">
+        <ScalarProperty Name="Id" ColumnName="menu_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="commande_pizza" TypeName="MYOPModel.commande_pizza" StoreEntitySet="commande_pizza">
+      <EndProperty Name="commande">
+        <ScalarProperty Name="Id" ColumnName="commande_id" />
+      </EndProperty>
+      <EndProperty Name="pizza">
+        <ScalarProperty Name="Id" ColumnName="pizza_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="commande_produits" TypeName="MYOPModel.commande_produits" StoreEntitySet="commande_produits">
+      <EndProperty Name="commande">
+        <ScalarProperty Name="Id" ColumnName="commande_id" />
+      </EndProperty>
+      <EndProperty Name="produits">
+        <ScalarProperty Name="Id" ColumnName="produits_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="composition" TypeName="MYOPModel.composition" StoreEntitySet="composition">
+      <EndProperty Name="ingredients">
+        <ScalarProperty Name="Id" ColumnName="ingredients_id" />
+      </EndProperty>
+      <EndProperty Name="pizza">
+        <ScalarProperty Name="Id" ColumnName="pizza_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

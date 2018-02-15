@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8ceabb3c0c2d464283c5c8710105b9c0" Name="Diagram1">
+        <EntityTypeShape EntityType="MYOPModel.administrateur" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.categorie" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.client" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.commande" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.compte" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.description" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.horaires" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.ingredients" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.menu" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.pizza" Width="1.5" PointX="10.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.pizzeria" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.produits" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.type" Width="1.5" PointX="3" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MYOPModel.composition_menu" Width="1.5" PointX="7.5" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="MYOPModel.FK_compte_toadministrateur" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_ingredients_categorie" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_produits_categorie" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_commande_ToClient" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_compte_toclient" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_commande_ToPiezzria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_compte_topizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_ingredients_description" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_produits_description" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_horaires_Pizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_ingredients_pizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_composition_menu_menu" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_composition_menu_pizza" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_pizza_pizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_pizza_type" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_produits_pizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_type_pizzeria" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.FK_composition_menu_produits" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.commande_menu" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.commande_pizza" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.commande_produits" ManuallyRouted="false" />
+        <AssociationConnector Association="MYOPModel.composition" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
