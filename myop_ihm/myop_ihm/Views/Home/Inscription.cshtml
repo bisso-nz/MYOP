@@ -1,0 +1,213 @@
+﻿@model myop_ihm.Models.compte
+
+@{
+    ViewBag.Title = "Inscriptiontest";
+    Layout = "~/Views/Shared/_LayoutSiteVitrine.cshtml";
+}
+
+<h2>Inscriptiontest</h2>
+
+<div class="custom-control-inline custom-radio">
+    <p>Êtes vous ?</p>
+    <span style="color : red">@ViewBag.error</span>
+    @Html.RadioButton("typeClent", "pizzeria", false, new
+               {
+                   @class = "custom-control-input",
+                   @id = "rdoResto",
+                   @onclick = "myFunction()"
+               })
+    @Html.Label("Un restaurateur", "Un restaurateur", new { @class = "custom-control-label", @for = "rdoResto" })
+
+    @Html.RadioButton("typeClent", "client", false, new
+               {
+                   @class = "custom-control-input",
+                   @id = "rdoClient",
+                   @onclick ="myFunction()"
+               })
+    @Html.Label("Un client", "Un client", new { @class = "custom-control-label", @for = "rdoClient" })
+</div>
+<script>
+    function myFunction() {
+        var blblblb = document.getElementsByName("typeClent");
+        var x = document.getElementById("myDIV");
+        var x2 = document.getElementById("myDIV2");
+
+        if (blblblb[0].checked)
+        {
+            x.style.display = "none";
+            x2.style.display = "block";
+        }
+        else if (blblblb[1].checked) {
+            x.style.display = "block";
+            x2.style.display = "none";
+        }
+        
+
+    }
+
+</script>
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>compte</h4>
+        <hr />
+        
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nom_de_compte, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nom_de_compte)
+                    @Html.ValidationMessageFor(model => model.nom_de_compte)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.mot_de_passe, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.mot_de_passe)
+                    @Html.ValidationMessageFor(model => model.mot_de_passe)
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.administrateur_id, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.administrateur_id)
+                    @Html.ValidationMessageFor(model => model.administrateur_id)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria_id, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria_id)
+                    @Html.ValidationMessageFor(model => model.pizzeria_id)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.client_id, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client_id)
+                    @Html.ValidationMessageFor(model => model.client_id)
+                </div>
+            </div>*@
+        <div id="myDIV" style="display:block">
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.nom, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client.nom)
+                    @Html.ValidationMessageFor(model => model.client.nom)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.prenom, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client.prenom)
+                    @Html.ValidationMessageFor(model => model.client.prenom)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client.email)
+                    @Html.ValidationMessageFor(model => model.client.email)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.no_telephone, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client.no_telephone)
+                    @Html.ValidationMessageFor(model => model.client.no_telephone)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.adresse, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.client.adresse)
+                    @Html.ValidationMessageFor(model => model.client.adresse)
+                </div>
+            </div>
+        </div>
+        <div id="myDIV2" style="display:none">
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.nom, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.nom)
+                    @Html.ValidationMessageFor(model => model.pizzeria.nom)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.adresse, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.adresse)
+                    @Html.ValidationMessageFor(model => model.pizzeria.adresse)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.nom_proprietaire, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.nom_proprietaire)
+                    @Html.ValidationMessageFor(model => model.pizzeria.nom_proprietaire)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.prenom_proprietaire, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.prenom_proprietaire)
+                    @Html.ValidationMessageFor(model => model.pizzeria.prenom_proprietaire)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.email)
+                    @Html.ValidationMessageFor(model => model.pizzeria.email)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.no_telephone, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.no_telephone)
+                    @Html.ValidationMessageFor(model => model.pizzeria.no_telephone)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.pizzeria.adresse_de_facturation, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.pizzeria.adresse_de_facturation)
+                    @Html.ValidationMessageFor(model => model.pizzeria.adresse_de_facturation)
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_LayoutSiteVitrine.cshtml";
+}
+
+<div class="container" style="background:rgba(255, 255, 255, 0.82); color:black; border: 1px groove black">
+    <div class="text-center">
+        <div class="text-capitalize" style="padding-bottom: 2em; margin-top: 15px;"><h2 >Nous Contacter</h2><hr /></div>
+        <p>Vous ne trouvez pas la réponse à votre question ? Vous désirez plus d'informations ?</p>
+        <p>Ou tout simplement nous dire un mot.</p>
+    </div>
+    <div class="container">
+        <div class="row">
+          @using(@Html.BeginForm("EnvoyerMessage","Home",null,FormMethod.Post))
+          {
+            <div class="col-md-6">
+                @Html.Label("Nom", "Nom", new
+   {
+       @class = "form-label"
+   })
+                @Html.TextBox("txtEmail", null, new
+   {
+       @class = "form-control"
+   })
+            </div> 
+            <div class="col-md-6">
+            @Html.Label("Email","Email", new
+   {
+       @class = "form-label"
+   })
+            @Html.TextBox("txtEmail",null, new
+   {
+       @class = "form-control"
+   })
+        </div>
+        <div class="row">
+            @Html.Label("Message","Message", new
+   {
+       @class = "form-label"
+   })
+            @Html.TextArea("txtMessage",null, new
+   {
+       @class = "form-control"
+   })
+        </div>
+        <div class="row justify-content-center">
+            <input type="submit" value="Envoyer" style="margin-bottom: 20px;"/>
+        </div>
+          }
+    </div>
+</div>

@@ -1,0 +1,158 @@
+﻿@model myop_ihm.Models.Compte
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inscription</title>
+    <link href="~/Content/inscription.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="container" id="form">
+        <div class="row justify-content-lg-center">
+            @using (Html.BeginForm("Inscription", "Home", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Inscription</h4>
+                    <hr />
+                    @Html.ValidationSummary(true)
+
+                    <div class="row form-row align-items-start">
+                        <div class="col">
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.Id_compte, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Id_compte)
+                                        @Html.ValidationMessageFor(model => model.Id_compte)
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nom_de_compte,"Nom du compte", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Nom_de_compte)
+                                    @Html.ValidationMessageFor(model => model.Nom_de_compte)
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.Type_de_compte, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Type_de_compte)
+                                        @Html.ValidationMessageFor(model => model.Type_de_compte)
+                                    </div>
+                                </div>*@
+
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.Id_contenue, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Id_contenue)
+                                        @Html.ValidationMessageFor(model => model.Id_contenue)
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nom,"Nom", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Nom)
+                                    @Html.ValidationMessageFor(model => model.Nom)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Prenom, "Prenom", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Prenom)
+                                    @Html.ValidationMessageFor(model => model.Prenom)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.No_telephone, "Téléphone", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.No_telephone)
+                                    @Html.ValidationMessageFor(model => model.No_telephone)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, "Email", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Email)
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model., "Mot de passe", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.TextBox("txtMdp", null)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Mot de passe", "Mot de passe", new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.TextBox("txtConfirmMdp", null)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nom_pizzeria, "Nom du restaurant", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Nom_pizzeria)
+                                    @Html.ValidationMessageFor(model => model.Nom_pizzeria)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-row align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Adresse, "Adresse", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Adresse)
+                                    @Html.ValidationMessageFor(model => model.Adresse)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Adresse_pizzeria, "Adresse de facturation", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Adresse_pizzeria)
+                                    @Html.ValidationMessageFor(model => model.Adresse_pizzeria)
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row form-row align-items-end">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Accueil", "Index")
+    </div>
+
+</body>
+</html>
